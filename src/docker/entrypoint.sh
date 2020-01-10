@@ -9,7 +9,13 @@ echo 'Connecting to MongoDB...'
 node <<- 'EOJS'
 const mongoClient = require('mongodb').MongoClient;
 setInterval(function() {
-	mongoClient.connect(process.env.MONGO_URL, function(err, client) {
+	mongoClient.connect(process.env.MONGO_URL,
+	{
+		useUnifiedTopology: true,
+		useNewUrlParser: true,
+		sslValidate: false,
+	},
+	function(err, client) {
 		if (client) {
 			client.close();
 		}
